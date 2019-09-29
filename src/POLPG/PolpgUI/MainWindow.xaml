@@ -6,10 +6,7 @@
         xmlns:local="clr-namespace:PolpgUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button x:Name="GenerateButton" Content="Generate" HorizontalAlignment="Left" Margin="132,348,0,0" VerticalAlignment="Top" Height="34" Width="176" Click="Button_Click" AutomationProperties.HelpText=""/>
-        <TextBlock HorizontalAlignment="Left" Margin="62,86,0,0" Text="TextBlock" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="171,86,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
-
+    <Grid  Name="pnlMainGrid" MouseUp="pnlMainGrid_MouseUp" Background="LightBlue">
+        
     </Grid>
 </Window>

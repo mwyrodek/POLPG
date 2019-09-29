@@ -25,14 +25,9 @@ namespace PolpgUI
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void pnlMainGrid_MouseUp(object sender, MouseButtonEventArgs e)
         {
-
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
+            MessageBox.Show("You clicked me at " + e.GetPosition(this).ToString());
         }
     }
 }
