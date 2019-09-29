@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeGenerator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,11 +24,22 @@ namespace PolpgUI
         public MainWindow()
         {
             InitializeComponent();
+            IntCodeWindow();
         }
 
-        private void pnlMainGrid_MouseUp(object sender, MouseButtonEventArgs e)
+        private void IntCodeWindow()
         {
-            MessageBox.Show("You clicked me at " + e.GetPosition(this).ToString());
+            generateCodeTextBox.Text = string.Empty;
+            generateCodeTextBox.AppendText("This is Mock for \n");
+            generateCodeTextBox.AppendText("Future Code  \n");
+            generateCodeTextBox.AppendText("That Will be generated from teplates \n");
+            generateCodeTextBox.AppendText("We will see how it works");
+            generateCodeTextBox.AppendText("Or if i can copy it");
+        }
+
+        private void GenerateCode_Click(object sender, RoutedEventArgs e)
+        {
+            generateCodeTextBox.Text = Generator.ReturnStubCode();
         }
     }
 }

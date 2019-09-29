@@ -8,4 +8,8 @@
     <PublishSingleFile>true</PublishSingleFile>
     <PublishTrimmed>true</PublishTrimmed>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CodeGenerator\CodeGenerator.csproj" />
+  </ItemGroup>
 </Project>
