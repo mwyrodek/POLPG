@@ -22,7 +22,16 @@
             </StackPanel>
         </Grid>
         <Grid x:Name="CodeGrid" Background="LightCyan" Grid.Column="1">
-            <TextBox Margin="10" Text="Generated Code will Go Here" Name="generateCodeTextBox"  TextWrapping="Wrap"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="CodeBlock" Grid.Row="0">
+                <TextBox Margin="10" Text="Generated Code will Go Here" Name="generateCodeTextBox"  TextWrapping="Wrap"/>
+            </Grid>
+            <Grid x:Name="CodeButtons" Grid.Row="1">
+                <Button x:Name="CopyToClipBoard" Content="Copy to clipboard" Click="CopyToClipBoard_Click"/>
+            </Grid>
         </Grid>
         
     </Grid>

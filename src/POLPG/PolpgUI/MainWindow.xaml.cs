@@ -41,5 +41,10 @@ namespace PolpgUI
         {
             generateCodeTextBox.Text = Generator.ReturnStubCode();
         }
+
+        private void CopyToClipBoard_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(generateCodeTextBox.Text);
+        }
     }
 }
