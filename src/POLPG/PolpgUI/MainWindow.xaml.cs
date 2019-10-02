@@ -1,50 +1,45 @@
-﻿using CodeGenerator;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace PolpgUI
+﻿namespace PolpgUI
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Resources;
+
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml.
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly PageObjectGenerator generator;
+
         public MainWindow()
         {
-            InitializeComponent();
-            IntCodeWindow();
+            this.InitializeComponent();
+            StreamResourceInfo info = this.IntPageStreamResource();
+            this.generator = new PageObjectGenerator(info);
+            this.SetInitalInputValues();
         }
 
-        private void IntCodeWindow()
+        private StreamResourceInfo IntPageStreamResource()
         {
-            generateCodeTextBox.Text = string.Empty;
-            generateCodeTextBox.AppendText("This is Mock for \n");
-            generateCodeTextBox.AppendText("Future Code  \n");
-            generateCodeTextBox.AppendText("That Will be generated from teplates \n");
-            generateCodeTextBox.AppendText("We will see how it works");
-            generateCodeTextBox.AppendText("Or if i can copy it");
+            Uri uri = new Uri("Data/SimplePage.txt", UriKind.Relative);
+            return Application.GetContentStream(uri);
+        }
+
+        private void SetInitalInputValues()
+        {
+            this.className.Text = "LoginPage";
+            this.generateCodeTextBox.Text = "No Code Generated Yet";
         }
 
         private void GenerateCode_Click(object sender, RoutedEventArgs e)
         {
-            generateCodeTextBox.Text = Generator.ReturnStubCode();
+            var generatedPage = this.generator.SetName(this.className.Text).Generate();
+            this.generateCodeTextBox.Text = generatedPage;
         }
 
         private void CopyToClipBoard_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(generateCodeTextBox.Text);
+            Clipboard.SetText(this.generateCodeTextBox.Text);
         }
     }
 }

@@ -13,11 +13,8 @@
         </Grid.ColumnDefinitions>
         <Grid x:Name="ControlGrid" Background="LightGray" Grid.Column="0">
             <StackPanel Margin="10">
-                <Label Content="_Name:" Target="{Binding ElementName=txtName}" />
-                <TextBox Name="txtName" />
-                <Label Content="_Mail:" Target="{Binding ElementName=txtMail}" />
-                <TextBox Name="txtMail" />
-
+                <Label Content="_PageName:" Target="{Binding ElementName=className}" />
+                <TextBox Name="className" />
                 <Button x:Name="GenerateCode" Content="Generate" Click="GenerateCode_Click"/>
             </StackPanel>
         </Grid>
