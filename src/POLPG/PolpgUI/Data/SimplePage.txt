@@ -1,6 +1,6 @@
     using OpenQA.Selenium;
     
-    public class $className$
+    public class $className$ $inheritanceName$
     {
         private IWebDriver driver;
         private readonly By usernameInputLocator = By.CssSelector("#username");

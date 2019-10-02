@@ -15,6 +15,11 @@
             <StackPanel Margin="10">
                 <Label Content="_PageName:" Target="{Binding ElementName=className}" />
                 <TextBox Name="className" />
+
+                <CheckBox Name="IsInheritance" Content="Use Inhertiance" Checked="IsInheritance_Checked"/>
+                    <Label Content="_Inheritance:" Target="{Binding ElementName=className}" />
+                <TextBox Name="inheritance" IsEnabled="False"/>
+
                 <Button x:Name="GenerateCode" Content="Generate" Click="GenerateCode_Click"/>
             </StackPanel>
         </Grid>

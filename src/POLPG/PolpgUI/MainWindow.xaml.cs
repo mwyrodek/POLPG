@@ -33,13 +33,22 @@
 
         private void GenerateCode_Click(object sender, RoutedEventArgs e)
         {
-            var generatedPage = this.generator.SetName(this.className.Text).Generate();
+            var generatedPage = this.generator
+                .SetName(this.className.Text)
+                .EnableInheritance(IsInheritance.IsChecked.Value)
+                .SetInheritanceValue(this.inheritance.Text)
+                .Generate();
             this.generateCodeTextBox.Text = generatedPage;
         }
 
         private void CopyToClipBoard_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(this.generateCodeTextBox.Text);
+        }
+
+        private void IsInheritance_Checked(object sender, RoutedEventArgs e)
+        {
+            inheritance.IsEnabled = true;
         }
     }
 }
