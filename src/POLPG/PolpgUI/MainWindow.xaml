@@ -3,38 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PolpgUI"
+        xmlns:views="clr-namespace:PolpgUI.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="600">
     <Grid  Name="pnlMainGrid" Background="LightBlue">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="ControlGrid" Background="LightGray" Grid.Column="0">
-            <StackPanel Margin="10">
-                <Label Content="_PageName:" Target="{Binding ElementName=className}" />
-                <TextBox Name="className" />
-
-                <CheckBox Name="IsInheritance" Content="Use Inhertiance" Checked="IsInheritance_Checked"/>
-                    <Label Content="_Inheritance:" Target="{Binding ElementName=className}" />
-                <TextBox Name="inheritance" IsEnabled="False"/>
-
-                <Button x:Name="GenerateCode" Content="Generate" Click="GenerateCode_Click"/>
-            </StackPanel>
-        </Grid>
-        <Grid x:Name="CodeGrid" Background="LightCyan" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="9*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <Grid x:Name="CodeBlock" Grid.Row="0">
-                <TextBox Margin="10" Text="Generated Code will Go Here" Name="generateCodeTextBox"  TextWrapping="Wrap"/>
-            </Grid>
-            <Grid x:Name="CodeButtons" Grid.Row="1">
-                <Button x:Name="CopyToClipBoard" Content="Copy to clipboard" Click="CopyToClipBoard_Click"/>
-            </Grid>
-        </Grid>
-        
+        <views:DataGeneratorViewModel x:Name="GeneratorViewControl" Loaded="GeneratorViewControl_Loaded"/>
     </Grid>
 </Window>

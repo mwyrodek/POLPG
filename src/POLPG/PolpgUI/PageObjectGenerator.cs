@@ -14,7 +14,8 @@
         private readonly string separator = "<end>";
         private string pageName = "LoginPage";
         private string inheritance = string.Empty;
-        private bool IsInheritance;
+        private string driver = "driver";
+        private bool IsInheritance = false;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PageObjectGenerator"/> class.
