@@ -20,7 +20,7 @@ namespace PolpgUI.Views
     {
         public DataGeneratorViewModel()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.DataContext = new ViewModel.GeneratorViewModel();
         }
     }

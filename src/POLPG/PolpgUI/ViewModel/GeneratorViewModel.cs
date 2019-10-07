@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Resources;
 using PolpgUI.Commands;
+using PolpgUI.Configuration;
 using PolpgUI.Models;
 
 namespace PolpgUI.ViewModel
@@ -11,16 +12,16 @@ namespace PolpgUI.ViewModel
     public class GeneratorViewModel
     {
         public GeneratorSettingsModel GeneratorSettingsModel { get; set; }
+
         public Command GenerateCommand { get; set; }
+
         public Command CopyToClipBoardCommand { get; set; }
 
         private readonly PageObjectGenerator generator;
 
-
         public GeneratorViewModel()
         {
-            StreamResourceInfo info = this.IntPageStreamResource();
-            this.generator = new PageObjectGenerator(info);
+            this.generator = new PageObjectGenerator(DataManager.ReadTemplate());
             this.LoadData();
             this.GenerateCommand = new Command(this.OnGenerate, this.CanGenerate);
             GenerateCommand.RaiseCanExecuteChanged();
@@ -62,12 +63,6 @@ namespace PolpgUI.ViewModel
             if (this.GeneratorSettingsModel.GeneratedCode == null) return false;
 
             return this.GeneratorSettingsModel.GeneratedCode.Length > 0;
-        }
-
-        private StreamResourceInfo IntPageStreamResource()
-        {
-            Uri uri = new Uri("Data/PageTemplates.txt", UriKind.Relative);
-            return Application.GetContentStream(uri);
         }
     }
 }

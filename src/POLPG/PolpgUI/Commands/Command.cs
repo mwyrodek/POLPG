@@ -47,6 +47,6 @@ namespace PolpgUI.Commands
             CanExecuteChanged(this, EventArgs.Empty);
         }
 
-        public event EventHandler CanExecuteChanged = delegate { };
+        public event EventHandler CanExecuteChanged = (sender, args) => { };
     }
 }

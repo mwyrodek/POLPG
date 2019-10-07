@@ -12,18 +12,15 @@ namespace PolpgUI
     public partial class MainWindow : Window
     {
 
-
         public MainWindow()
         {
             this.InitializeComponent();
-
         }
 
         private void GeneratorViewControl_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModel.GeneratorViewModel generatorViewModel = new GeneratorViewModel();
-            GeneratorViewControl.DataContext = generatorViewModel;
-
+            this.GeneratorViewControl.DataContext = generatorViewModel;
         }
     }
 }

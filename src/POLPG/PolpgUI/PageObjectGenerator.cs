@@ -10,12 +10,13 @@
     /// </summary>
     public class PageObjectGenerator
     {
-        private readonly List<string> pageTemplates = new List<string>();
+        private readonly Dictionary<string, string> pageTemplates = new Dictionary<string, string>();
         private readonly string separator = "<end>";
         private string pageName = "LoginPage";
         private string inheritance = string.Empty;
         private string driver = "driver";
         private bool IsInheritance = false;
+        private string currentTemplate = "SimplePage";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PageObjectGenerator"/> class.
@@ -29,7 +30,17 @@
                 readToEnd = reader.ReadToEnd();
             }
 
-            this.pageTemplates = readToEnd.Split(this.separator).ToList();
+            var splitFile = readToEnd.Split(this.separator);
+            currentTemplate = splitFile[0];
+            this.pageTemplates.Add(splitFile[0], splitFile[1]);
+        }
+
+        /// Initializes a new instance of the <see cref="PageObjectGenerator"/> class.
+        /// </summary>
+        /// <param name="streamResourceInfo">stream from WPF content.</param>
+        public PageObjectGenerator(Dictionary<string, string> templates)
+        {
+            this.pageTemplates = templates;
         }
 
         /// <summary>
@@ -56,8 +67,7 @@
         /// <returns>string with POM class.</returns>
         public string Generate()
         {
-            var generatedPage = this.pageTemplates
-                .FirstOrDefault()
+            var generatedPage = this.pageTemplates[currentTemplate]
                 .Replace("$className$", this.pageName);
             generatedPage = this.ApplyInheritance(generatedPage);
 
