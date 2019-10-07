@@ -3,8 +3,9 @@
 namespace PolpgUI.Configuration
 {
     using System;
-    using System.IO;
     using System.Collections.Generic;
+    using System.IO;
+
     using System.Windows;
     using PolpgUI.Models;
 
@@ -45,7 +46,7 @@ namespace PolpgUI.Configuration
         /// <summary>
         /// A facaded that read setting file and in case it doesn't exist reconstructs it from resources.
         /// </summary>
-        /// <param name="path">path to file includes directory.</param>
+        /// <param name="file">path to file includes directory.</param>
         /// <returns>string with data.</returns>
         private static string ReadFileFacade(string file)
         {
@@ -77,7 +78,7 @@ namespace PolpgUI.Configuration
 
         private static string ReadFile(string filePath)
         {
-            string fileContent =String.Empty;
+            string fileContent =string.Empty;
             using (var reader = new StreamReader(filePath))
             {
                 fileContent = reader.ReadToEnd();

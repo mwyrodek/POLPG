@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows.Input;
-
-namespace PolpgUI.Commands
+﻿namespace PolpgUI.Commands
 {
+    using System;
+    using System.Windows.Input;
     public class Command : ICommand
     {
         Action _TargetExecuteMethod;

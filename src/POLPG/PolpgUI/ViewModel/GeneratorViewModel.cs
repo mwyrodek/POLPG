@@ -45,11 +45,8 @@ namespace PolpgUI.ViewModel
 
         public void LoadData()
         {
-            var generatorSettingsModel = new GeneratorSettingsModel();
-            generatorSettingsModel.PageName = "LoginPage";
-
-            GeneratorSettingsModel = generatorSettingsModel;
-
+            var generatorSettingsModel = new GeneratorSettingsModel {PageName = "LoginPage"};
+            this.GeneratorSettingsModel = generatorSettingsModel;
         }
 
         private bool CanGenerate()

@@ -22,7 +22,6 @@ namespace PolpgUI.Models
                 this.pageName = value;
                 this.OnPropertyChanged(nameof(this.PageName));
             }
-
         }
 
         public bool IsInheritance

@@ -1,10 +1,10 @@
-﻿using PolpgUI.ViewModel;
-
-namespace PolpgUI
+﻿namespace PolpgUI
 {
     using System;
     using System.Windows;
     using System.Windows.Resources;
+
+    using PolpgUI.ViewModel;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml.
