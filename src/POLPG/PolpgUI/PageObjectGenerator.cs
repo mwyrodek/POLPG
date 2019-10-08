@@ -1,4 +1,6 @@
-﻿namespace PolpgUI
+﻿using PolpgUI.Annotations;
+
+namespace PolpgUI
 {
     using System.Collections.Generic;
     using System.IO;
@@ -67,16 +69,25 @@
         /// <returns>string with POM class.</returns>
         public string Generate()
         {
-            var generatedPage = this.pageTemplates[currentTemplate]
+            var generatedPage = this.pageTemplates[this.currentTemplate]
                 .Replace("$className$", this.pageName);
             generatedPage = this.ApplyInheritance(generatedPage);
 
-            return generatedPage;
+            //sanitize other values that werent sanitized
+            return generatedPage.Replace("$", string.Empty);
         }
 
         private string ApplyInheritance(string generatedPage)
         {
-            return generatedPage = generatedPage.Replace("$inheritanceName$", this.IsInheritance ? this.inheritance : string.Empty);
+            generatedPage = generatedPage.Replace("$inheritanceName$", this.IsInheritance ? this.inheritance : string.Empty);
+            if (this.IsInheritance)
+            {
+                generatedPage = generatedPage.Replace("$private IWebDriver driver;$", string.Empty)
+                    .Replace("(IWebDriver driver)", "(IWebDriver driver) : base(driver)")
+                    .Replace("driver", driver);
+            }
+
+            return generatedPage;
         }
 
         public PageObjectGenerator EnableInheritance(bool isInheritanceIsChecked)

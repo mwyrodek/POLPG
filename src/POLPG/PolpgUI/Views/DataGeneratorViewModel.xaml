@@ -24,14 +24,15 @@
 
             <Label Content="_PageName:" Target="{Binding ElementName=ClassName}"/>
             <TextBox Name="ClassName" Text="{Binding GeneratorSettingsModel.PageName, Mode=TwoWay}" />
-            <CheckBox Name="IsInheritance" Content="Use Inhertiance" IsChecked="{Binding IsInheritance}" />
+            <CheckBox Name="IsInheritance" Content="Use Inhertiance" IsChecked="{Binding GeneratorSettingsModel.IsInheritance, Mode=TwoWay}" />
             <Label Content="_Inheritance:" Target="{Binding ElementName=ParentName}"/>
-            <TextBox Name="ParentName" Text="{Binding GeneratorSettingsModel.ParentName}" IsEnabled="{Binding IsInheritance}"/>
+            <TextBox Name="ParentName" Text="{Binding GeneratorSettingsModel.ParentName}" IsEnabled="{Binding GeneratorSettingsModel.IsInheritance, Mode=TwoWay}"/>
 
 
         </ItemsControl>
         <ItemsControl ItemsSource = "{Binding Path = GeneratorSettingsModel}" Grid.Column="1" Grid.Row="0">
-            <TextBox Margin="10" Text="{Binding GeneratorSettingsModel.GeneratedCode}" Name="generateCodeTextBox"  TextWrapping="Wrap" Grid.Column="1" Grid.Row="0"/>
+
+            <TextBox Margin="10" Text="{Binding GeneratorSettingsModel.GeneratedCode}" Name="generateCodeTextBox"  TextWrapping="Wrap" Grid.Column="1" Grid.Row="0" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
         </ItemsControl>
         <Button Content="Generate" Grid.Row="1" Grid.Column="0" Margin="5 5 5 5" Command="{Binding GenerateCommand}"/>
         <Button Content="Copy To Clipboard" Grid.Row="1" Grid.Column="1" Margin="5 5 5 5" Command="{Binding CopyToClipBoardCommand}"/>

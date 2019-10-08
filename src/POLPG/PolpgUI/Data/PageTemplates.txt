@@ -5,7 +5,7 @@ SimplePage
     
     public class $className$ $inheritanceName$
     {
-        private IWebDriver driver;
+        $private IWebDriver driver;$
         private readonly By usernameInputLocator = By.CssSelector("#username");
         
         private readonly By passwordInputLocator = By.CssSelector("#password");
