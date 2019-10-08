@@ -89,6 +89,8 @@ namespace PolpgUI.Configuration
 
         private static void SaveFile(string fileName, string content)
         {
+            string path = $@"{Directory.GetCurrentDirectory()}\{directory}";
+            Directory.CreateDirectory(path);
             using (var writer = new StreamWriter(fileName))
             {
                 writer.Write(content);

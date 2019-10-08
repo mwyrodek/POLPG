@@ -51,7 +51,7 @@ namespace PolpgUI.ViewModel
 
         private bool CanGenerate()
         {
-            return this.GeneratorSettingsModel.PageName.Length>0;
+            return this.GeneratorSettingsModel.PageName.Length > 0;
         }
 
         private bool CanCopyToClipBoard()
