@@ -1,11 +1,6 @@
-﻿using PolpgUI.Annotations;
-
-namespace PolpgUI
+﻿namespace PolpgUI
 {
     using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Windows.Resources;
 
     /// <summary>
     /// Page Object Generator using fluent interfaces.
@@ -13,33 +8,16 @@ namespace PolpgUI
     public class PageObjectGenerator
     {
         private readonly Dictionary<string, string> pageTemplates = new Dictionary<string, string>();
-        private readonly string separator = "<end>";
         private string pageName = "LoginPage";
         private string inheritance = string.Empty;
         private string driver = "driver";
-        private bool IsInheritance = false;
+        private bool isInheritance = false;
         private string currentTemplate = "SimplePage";
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PageObjectGenerator"/> class.
+        /// Initializes a new instance of the <see cref="PageObjectGenerator"/>.
         /// </summary>
-        /// <param name="streamResourceInfo">stream from WPF content.</param>
-        public PageObjectGenerator(StreamResourceInfo streamResourceInfo)
-        {
-            string readToEnd = string.Empty;
-            using (var reader = new StreamReader(streamResourceInfo.Stream))
-            {
-                readToEnd = reader.ReadToEnd();
-            }
-
-            var splitFile = readToEnd.Split(this.separator);
-            currentTemplate = splitFile[0];
-            this.pageTemplates.Add(splitFile[0], splitFile[1]);
-        }
-
-        /// Initializes a new instance of the <see cref="PageObjectGenerator"/> class.
-        /// </summary>
-        /// <param name="streamResourceInfo">stream from WPF content.</param>
+        /// <param name="templates">dictonary with list of templetes should include SimplePage</param>
         public PageObjectGenerator(Dictionary<string, string> templates)
         {
             this.pageTemplates = templates;
@@ -62,7 +40,6 @@ namespace PolpgUI
             return this;
         }
 
-
         /// <summary>
         /// Generates String with formatted page object model class for login page.
         /// </summary>
@@ -73,14 +50,20 @@ namespace PolpgUI
                 .Replace("$className$", this.pageName);
             generatedPage = this.ApplyInheritance(generatedPage);
 
-            //sanitize other values that werent sanitized
+            // sanitize other values that weren''t sanitized
             return generatedPage.Replace("$", string.Empty);
+        }
+
+        public PageObjectGenerator EnableInheritance(bool isInheritanceIsChecked)
+        {
+            this.isInheritance = isInheritanceIsChecked;
+            return this;
         }
 
         private string ApplyInheritance(string generatedPage)
         {
-            generatedPage = generatedPage.Replace("$inheritanceName$", this.IsInheritance ? this.inheritance : string.Empty);
-            if (this.IsInheritance)
+            generatedPage = generatedPage.Replace("$inheritanceName$", this.isInheritance ? this.inheritance : string.Empty);
+            if (this.isInheritance)
             {
                 generatedPage = generatedPage.Replace("$private IWebDriver driver;$", string.Empty)
                     .Replace("(IWebDriver driver)", "(IWebDriver driver) : base(driver)")
@@ -88,12 +71,6 @@ namespace PolpgUI
             }
 
             return generatedPage;
-        }
-
-        public PageObjectGenerator EnableInheritance(bool isInheritanceIsChecked)
-        {
-            this.IsInheritance = isInheritanceIsChecked;
-            return this;
         }
     }
 }

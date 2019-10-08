@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PolpgUI", "PolpgUI\PolpgUI.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoginPage-Lab", "LoginPage-TestField\LoginPage-Lab.csproj", "{0764CE1F-4801-447E-A686-1ACE85253AC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolpgTests", "PolpgTests\PolpgTests.csproj", "{788675F5-81BC-43C5-9617-979EB9A10449}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{7FFB27F2-5F01-401E-9B15-35BF18987C54}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0764CE1F-4801-447E-A686-1ACE85253AC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0764CE1F-4801-447E-A686-1ACE85253AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{788675F5-81BC-43C5-9617-979EB9A10449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{788675F5-81BC-43C5-9617-979EB9A10449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{788675F5-81BC-43C5-9617-979EB9A10449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{788675F5-81BC-43C5-9617-979EB9A10449}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
