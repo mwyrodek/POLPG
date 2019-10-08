@@ -15,8 +15,7 @@ namespace PolpgTests
         public void SimplePage_IsDefaultTemplate()
         {
             var result = "done";
-            input = new Dictionary<string, string>();
-            input.Add("SimplePage", result);
+            input = new Dictionary<string, string> {{"SimplePage", result}};
 
             sut = new PageObjectGenerator(input);
 
@@ -29,8 +28,7 @@ namespace PolpgTests
         public void GeneratorSanitaze_Results()
         {
             var result = "done";
-            input = new Dictionary<string, string>();
-            input.Add("SimplePage", $"${result}$$$$$$");
+            input = new Dictionary<string, string> {{"SimplePage", $"${result}$$$$$$"}};
 
             sut = new PageObjectGenerator(input);
 
@@ -43,8 +41,7 @@ namespace PolpgTests
         public void Generator_DefaultPageName_IsLoginPAge()
         {
             var result = "LoginPage";
-            input = new Dictionary<string, string>();
-            input.Add("SimplePage", "$className$");
+            input = new Dictionary<string, string> {{"SimplePage", "$className$"}};
 
             sut = new PageObjectGenerator(input);
 
@@ -57,8 +54,7 @@ namespace PolpgTests
         public void Generator_SetBamePageName_IsLoginPAge()
         {
             var result = "DarkPage";
-            input = new Dictionary<string, string>();
-            input.Add("SimplePage", "$className$");
+            input = new Dictionary<string, string> {{"SimplePage", "$className$"}};
 
             sut = new PageObjectGenerator(input);
 
@@ -70,8 +66,7 @@ namespace PolpgTests
         [Fact]
         public void Generator_NoInheritence_IsEmpty()
         {
-            input = new Dictionary<string, string>();
-            input.Add("SimplePage", "$inheritanceName$");
+            input = new Dictionary<string, string> {{"SimplePage", "$inheritanceName$"}};
 
             sut = new PageObjectGenerator(input);
 
@@ -80,15 +75,74 @@ namespace PolpgTests
             Assert.Equal(string.Empty, generatedCode);
         }
 
-        // inhertience without activeting it
+        [Fact]
+        public void Generator_InheritenceActive_SetValue()
+        {
+            var entryValue = "BasePage";
+            var expectedValue = " : BasePage";
+            
+            input = new Dictionary<string, string> {{"SimplePage", "$inheritanceName$"}};
 
-        // inheritence with active
+            sut = new PageObjectGenerator(input);
 
-        // no inheritence no base
-        // inheritence base
+            var generatedCode = sut.EnableInheritance(true)
+                .SetInheritanceValue(entryValue)
+                .Generate();
 
-        // inheritence remove driver line
-        // no iheritence leave it
+            Assert.Equal(expectedValue, generatedCode);
+        }
+
+        [Fact]
+        public void Generator_NoInheritence_DriverLineNotRemoved()
+        {
+            input = new Dictionary<string, string> {{"SimplePage", "$private IWebDriver driver;$"}};
+
+            sut = new PageObjectGenerator(input);
+
+            var generatedCode = sut.Generate();
+
+            Assert.Equal("private IWebDriver driver;", generatedCode);
+        }
+
+        [Fact]
+        public void Generator_InheritenceActive_DriverLineRemoved()
+        {
+            input = new Dictionary<string, string> {{"SimplePage", "$private IWebDriver driver;$"}};
+
+            sut = new PageObjectGenerator(input);
+
+            var generatedCode = sut.EnableInheritance(true)
+                .Generate();
+
+            Assert.Equal(string.Empty, generatedCode);
+        }
+
+        [Fact]
+        public void Generator_NoInheritence_NoBase()
+        {
+            input = new Dictionary<string, string> {{"SimplePage", "(IWebDriver driver)"}};
+
+            sut = new PageObjectGenerator(input);
+
+            var generatedCode = sut.Generate();
+
+            Assert.Equal("(IWebDriver driver)", generatedCode);
+        }
+
+
+        [Fact]
+        public void Generator_Iheritence_AddedBase()
+        {
+            input = new Dictionary<string, string> { { "SimplePage", "(IWebDriver driver)" } };
+
+            sut = new PageObjectGenerator(input);
+
+            var generatedCode = sut.EnableInheritance(true).Generate();
+
+            Assert.Equal("(IWebDriver driver) : base(driver)", generatedCode);
+        }
+
+
 
         // driver changes driver name
 
