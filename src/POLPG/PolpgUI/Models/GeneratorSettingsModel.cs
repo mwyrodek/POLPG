@@ -12,6 +12,7 @@ namespace PolpgUI.Models
         private string parentName;
         private bool isInheritance;
         private string generatedCode;
+        private string drvierName;
 
         public string PageName
         {
@@ -44,7 +45,15 @@ namespace PolpgUI.Models
             }
         }
 
-
+        public string DriverName
+        {
+            get => this.drvierName;
+            set
+            {
+                this.drvierName = value;
+                this.OnPropertyChanged(nameof(this.DriverName));
+            }
+        }
         public string GeneratedCode
         {
             get => this.generatedCode;

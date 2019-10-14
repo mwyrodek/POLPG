@@ -1,4 +1,7 @@
-﻿namespace PolpgUI
+﻿using System;
+using PolpgUI.Exceptions;
+
+namespace PolpgUI
 {
     using System.Collections.Generic;
 
@@ -20,6 +23,15 @@
         /// <param name="templates">dictonary with list of templetes should include SimplePage</param>
         public PageObjectGenerator(Dictionary<string, string> templates)
         {
+            try
+            {
+                var template = templates["SimplePage"];
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new TemplateNotFoundException("Simple Page Template is required.");
+            }
+
             this.pageTemplates = templates;
         }
 
@@ -51,12 +63,18 @@
             generatedPage = this.ApplyInheritance(generatedPage);
 
             // sanitize other values that weren''t sanitized
-            return generatedPage.Replace("$", string.Empty);
+            return generatedPage.Replace("driver",driver).Replace("$", string.Empty);
         }
 
         public PageObjectGenerator EnableInheritance(bool isInheritanceIsChecked)
         {
             this.isInheritance = isInheritanceIsChecked;
+            return this;
+        }
+
+        public PageObjectGenerator SetDriverName(string newName)
+        {
+            driver = newName;
             return this;
         }
 

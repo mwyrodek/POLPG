@@ -27,6 +27,8 @@
             <CheckBox Name="IsInheritance" Content="Use Inhertiance" IsChecked="{Binding GeneratorSettingsModel.IsInheritance, Mode=TwoWay}" />
             <Label Content="_Inheritance:" Target="{Binding ElementName=ParentName}"/>
             <TextBox Name="ParentName" Text="{Binding GeneratorSettingsModel.ParentName}" IsEnabled="{Binding GeneratorSettingsModel.IsInheritance, Mode=TwoWay}"/>
+            <Label Content="_Driver:" Target="{Binding ElementName=DriverName}"/>
+            <TextBox Name="DriverName" Text="{Binding GeneratorSettingsModel.DriverName}" IsEnabled="{Binding GeneratorSettingsModel.IsInheritance, Mode=TwoWay}"/>
 
 
         </ItemsControl>

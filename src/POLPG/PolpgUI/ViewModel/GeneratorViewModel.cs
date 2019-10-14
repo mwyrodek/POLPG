@@ -34,6 +34,7 @@ namespace PolpgUI.ViewModel
                 .SetName(this.GeneratorSettingsModel.PageName)
                 .EnableInheritance(this.GeneratorSettingsModel.IsInheritance)
                 .SetInheritanceValue(this.GeneratorSettingsModel.ParentName)
+                .SetDriverName(this.GeneratorSettingsModel.DriverName)
                 .Generate();
             CopyToClipBoardCommand.RaiseCanExecuteChanged();
         }
@@ -45,7 +46,7 @@ namespace PolpgUI.ViewModel
 
         public void LoadData()
         {
-            var generatorSettingsModel = new GeneratorSettingsModel {PageName = "LoginPage"};
+            var generatorSettingsModel = new GeneratorSettingsModel {PageName = "LoginPage", DriverName = "driver"};
             this.GeneratorSettingsModel = generatorSettingsModel;
         }
 
