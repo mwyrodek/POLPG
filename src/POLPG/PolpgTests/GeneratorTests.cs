@@ -146,10 +146,10 @@ namespace PolpgTests
         public void Generator_RequiresSimpleTemplate()
         {
             input = new Dictionary<string, string> { { "SimplePageX", "$private IWebDriver driver;$" } };
-            var expectedMessage = "Simple Page Template is required.";
+            var expectedMessage = "SimplePage Template not found.";
 
             var exception = Assert.Throws<TemplateNotFoundException>(
-                () => sut = new PageObjectGenerator(input));
+                () => new PageObjectGenerator(input));
 
             Assert.Equal(expectedMessage, exception.Message);
         }
@@ -179,6 +179,69 @@ namespace PolpgTests
             var generatedCode = sut.SetDriverName(newName).EnableInheritance(true).Generate();
 
             Assert.Equal(expected, generatedCode);
+        }
+
+        [Fact]
+        public void Generator_ChainTrue_ChainedTemplateUsed()
+        {
+            input = new Dictionary<string, string> { { "SimplePage", "$private IWebDriver driver;$ (IWebDriver driver)" }, { "SimplePageChained", "$private IWebDriver driver;$ (IWebDriver driver)" } };
+            sut = new PageObjectGenerator(input);
+            sut.EnableMethodChaining(true).Generate();
+
+            Assert.Equal("SimplePageChained", sut.CurrentTemplate);
+        }
+
+        [Fact]
+        public void Generator_ChainTrue_NoTemplate_ExceptioIsThrown()
+        {
+            input = new Dictionary<string, string> { { "SimplePage", "$private IWebDriver driver;$ (IWebDriver driver)" }};
+            sut = new PageObjectGenerator(input);
+
+            var exception = Assert.Throws<TemplateNotFoundException>(
+                () => sut.EnableMethodChaining(true));
+
+        }
+
+        [Fact]
+        public void Generator_ChainFalseTrue_PlainTemplateUsed()
+        {
+            input = new Dictionary<string, string> { { "SimplePage", "$private IWebDriver driver;$ (IWebDriver driver)" }, { "SimplePageChained", "$private IWebDriver driver;$ (IWebDriver driver)" } };
+            sut = new PageObjectGenerator(input);
+            sut.EnableMethodChaining(false).Generate();
+
+            Assert.Equal("SimplePage", sut.CurrentTemplate);
+        }
+
+        [Fact]
+        public void Generator_TemplateChanged_NewTempleateIsUsed()
+        {
+            var expected = "NewTemplate";
+            input = new Dictionary<string, string> { { "SimplePage", "$private IWebDriver driver;$ (IWebDriver driver)" }, { expected, "$private IWebDriver driver;$ (IWebDriver driver)" } };
+            sut = new PageObjectGenerator(input);
+            sut.SelectTemplate(expected).Generate();
+
+            Assert.Equal(expected, sut.CurrentTemplate);
+        }
+
+
+        [Fact]
+        public void Generator_TemplateChanged_NoTemplate_ErrorIsThrown()
+        {
+            input = new Dictionary<string, string> { { "SimplePage", "$private IWebDriver driver;$ (IWebDriver driver)" } };
+            sut = new PageObjectGenerator(input);
+
+            var exception = Assert.Throws<TemplateNotFoundException>(
+                () => sut.SelectTemplate("notemplateexists"));
+        }
+
+        [Fact]
+        public void Generator_TemplateChangedWhenChainActiveWillKeepChain_NoTemplate_ErrorIsThrown()
+        {
+            input = new Dictionary<string, string> { { "SimplePage", "" }, { "SimplePageChained", "" }, { "NewPage", "" }, { "NewPageChained", "" } };
+            sut = new PageObjectGenerator(input);
+            sut.EnableMethodChaining(true).SelectTemplate("NewPage");
+
+            Assert.Equal("NewPageChained", sut.CurrentTemplate);
         }
     }
 }

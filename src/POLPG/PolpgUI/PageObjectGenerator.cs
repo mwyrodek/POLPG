@@ -15,7 +15,14 @@ namespace PolpgUI
         private string inheritance = string.Empty;
         private string driver = "driver";
         private bool isInheritance = false;
+        private bool chainedMode = false;
         private string currentTemplate = "SimplePage";
+        private string baseTemplate = "SimplePage";
+
+        public string CurrentTemplate
+        {
+            get => currentTemplate;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PageObjectGenerator"/>.
@@ -23,16 +30,8 @@ namespace PolpgUI
         /// <param name="templates">dictonary with list of templetes should include SimplePage</param>
         public PageObjectGenerator(Dictionary<string, string> templates)
         {
-            try
-            {
-                var template = templates["SimplePage"];
-            }
-            catch (KeyNotFoundException)
-            {
-                throw new TemplateNotFoundException("Simple Page Template is required.");
-            }
-
             this.pageTemplates = templates;
+            this.CheckIfTemplateExist("SimplePage");
         }
 
         /// <summary>
@@ -78,6 +77,21 @@ namespace PolpgUI
             return this;
         }
 
+        public PageObjectGenerator EnableMethodChaining(bool set)
+        {
+            var chainSufix = "Chained";
+            this.currentTemplate = set ? $"{this.baseTemplate}{chainSufix}" : $"{this.baseTemplate}";
+            this.chainedMode = set;
+            this.CheckIfTemplateExist(this.currentTemplate);
+            return this;
+        }
+
+        public PageObjectGenerator SelectTemplate(string newTemplate)
+        {
+            this.baseTemplate = newTemplate;
+            return this.EnableMethodChaining(this.chainedMode);
+        }
+
         private string ApplyInheritance(string generatedPage)
         {
             generatedPage = generatedPage.Replace("$inheritanceName$", this.isInheritance ? this.inheritance : string.Empty);
@@ -85,10 +99,22 @@ namespace PolpgUI
             {
                 generatedPage = generatedPage.Replace("$private IWebDriver driver;$", string.Empty)
                     .Replace("(IWebDriver driver)", "(IWebDriver driver) : base(driver)")
-                    .Replace("driver", driver);
+                    .Replace("driver", this.driver);
             }
 
             return generatedPage;
+        }
+
+        private void CheckIfTemplateExist(string templateName)
+        {
+            try
+            {
+                var template = this.pageTemplates[templateName];
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new TemplateNotFoundException($"{templateName} Template not found.");
+            }
         }
     }
 }

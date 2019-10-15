@@ -40,3 +40,50 @@ SimplePage
             ClickLoginButtton();
         }
     }
+
+SimplePageChained
+<sep>
+
+    using OpenQA.Selenium;
+    
+    public class $className$ $inheritanceName$
+    {
+        $private IWebDriver driver;$
+        private readonly By usernameInputLocator = By.CssSelector("#username");
+        
+        private readonly By passwordInputLocator = By.CssSelector("#password");
+        private readonly By sumitButtonLocator = By.CssSelector("#password");
+        
+        
+        public $className$(IWebDriver driver)
+        {
+            this.driver = driver;
+        }
+
+
+        public $className$  TypeLogin(string login)
+        {
+            driver.FindElement(usernameInputLocator).SendKeys(login);
+			return this;
+        }
+
+        public $className$  TypePassword(string password)
+        {
+            driver.FindElement(passwordInputLocator).SendKeys(password);
+			return this;
+        }
+
+        public $className$  ClickLoginButtton()
+        {
+            driver.FindElement(sumitButtonLocator).Click();
+			return this;
+        }
+
+        public $returnType$ Login(string login, string password)
+        {
+            TypeLogin(login);
+            TypePassword(password);
+            ClickLoginButtton();
+			return new $returnType$(driver);
+        }
+    }
