@@ -10,10 +10,11 @@
     <UserControl.DataContext>
         <viewModel:GeneratorViewModel/>
     </UserControl.DataContext>
-    <Grid Background="Aquamarine">
+    <Grid Background="#FFCD17">
         <Grid.RowDefinitions>
-            <RowDefinition Height="9*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="0.5*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*" />
@@ -38,5 +39,11 @@
         </ItemsControl>
         <Button Content="Generate" Grid.Row="1" Grid.Column="0" Margin="5 5 5 5" Command="{Binding GenerateCommand}"/>
         <Button Content="Copy To Clipboard" Grid.Row="1" Grid.Column="1" Margin="5 5 5 5" Command="{Binding CopyToClipBoardCommand}"/>
+        <TextBlock Name="Author" Grid.Row="2" TextWrapping="Wrap">
+            <Span xml:space="preserve"><Run>Author:</Run><Hyperlink NavigateUri="https://thebrokentest.com/">Maciej Wyrodek</Hyperlink><Run> Project Page and Documenation on </Run><Hyperlink NavigateUri="https://github.com/mwyrodek/POLPG">GitHub</Hyperlink></Span>
+            <Span xml:space="default"><Run>License:</Run>
+                <Hyperlink NavigateUri="https://github.com/mwyrodek/POLPG/blob/master/LICENSE">GNU General Public License v3.0</Hyperlink>
+            </Span>
+        </TextBlock>
     </Grid>
 </UserControl>
